@@ -1,0 +1,15 @@
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.csproj.AssemblyReference.cache
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.AssemblyInfoInputs.cache
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.AssemblyInfo.cs
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.csproj.CoreCompileInputs.cache
+D:\Samples\BethanysPieShop.InventoryManagement\Application\bin\Debug\net6.0\Application.deps.json
+D:\Samples\BethanysPieShop.InventoryManagement\Application\bin\Debug\net6.0\Application.dll
+D:\Samples\BethanysPieShop.InventoryManagement\Application\bin\Debug\net6.0\Application.pdb
+D:\Samples\BethanysPieShop.InventoryManagement\Application\bin\Debug\net6.0\BethanysPieShop.InventoryManagement.dll
+D:\Samples\BethanysPieShop.InventoryManagement\Application\bin\Debug\net6.0\BethanysPieShop.InventoryManagement.pdb
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.csproj.CopyComplete
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.dll
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\refint\Application.dll
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\Application.pdb
+D:\Samples\BethanysPieShop.InventoryManagement\Application\obj\Debug\net6.0\ref\Application.dll

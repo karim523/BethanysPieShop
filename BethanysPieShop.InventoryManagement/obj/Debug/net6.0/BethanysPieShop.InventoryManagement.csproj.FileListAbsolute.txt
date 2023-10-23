@@ -1,0 +1,11 @@
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\bin\Debug\net6.0\BethanysPieShop.InventoryManagement.deps.json
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\bin\Debug\net6.0\BethanysPieShop.InventoryManagement.dll
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\bin\Debug\net6.0\BethanysPieShop.InventoryManagement.pdb
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\BethanysPieShop.InventoryManagement.GeneratedMSBuildEditorConfig.editorconfig
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\BethanysPieShop.InventoryManagement.AssemblyInfoInputs.cache
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\BethanysPieShop.InventoryManagement.AssemblyInfo.cs
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\BethanysPieShop.InventoryManagement.csproj.CoreCompileInputs.cache
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\BethanysPieShop.InventoryManagement.dll
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\refint\BethanysPieShop.InventoryManagement.dll
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\BethanysPieShop.InventoryManagement.pdb
+D:\Samples\BethanysPieShop.InventoryManagement\BethanysPieShop.InventoryManagement\obj\Debug\net6.0\ref\BethanysPieShop.InventoryManagement.dll

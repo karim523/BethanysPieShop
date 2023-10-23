@@ -1,0 +1,91 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "BethanysPieShop.InventoryManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/BethanysPieShop.InventoryManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BethanysPieShop.InventoryManagement.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BethanysPieShop.InventoryManagement/1.0.0": {
+      "type": "project",
+      "path": "../BethanysPieShop.InventoryManagement/BethanysPieShop.InventoryManagement.csproj",
+      "msbuildProject": "../BethanysPieShop.InventoryManagement/BethanysPieShop.InventoryManagement.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "BethanysPieShop.InventoryManagement >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\karim\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Samples\\BethanysPieShop.InventoryManagement\\Application\\Application.csproj",
+      "projectName": "Application",
+      "projectPath": "D:\\Samples\\BethanysPieShop.InventoryManagement\\Application\\Application.csproj",
+      "packagesPath": "C:\\Users\\karim\\.nuget\\packages\\",
+      "outputPath": "D:\\Samples\\BethanysPieShop.InventoryManagement\\Application\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\karim\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\Samples\\BethanysPieShop.InventoryManagement\\BethanysPieShop.InventoryManagement\\BethanysPieShop.InventoryManagement.csproj": {
+              "projectPath": "D:\\Samples\\BethanysPieShop.InventoryManagement\\BethanysPieShop.InventoryManagement\\BethanysPieShop.InventoryManagement.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
