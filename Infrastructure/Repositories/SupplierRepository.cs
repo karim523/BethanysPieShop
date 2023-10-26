@@ -31,5 +31,6 @@ namespace Infrastructure.Repositories
         {
            return await _context.Suppliers.ToListAsync();
         }
+      
     }
 }

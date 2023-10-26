@@ -11,49 +11,15 @@ namespace Application.Products
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
-
         public ProductsService(IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<AddProductOutputDto> CreateProduct(AddProductInputDto input)
-        {
-            var priceDto = new Price(input.ItemPrice, input.Currency);
-            if (priceDto.IsInvalid) 
-            {
-                return new AddProductOutputDto()
-                {
-                    Erorrs = priceDto.Notifications
-                };
-            }
-
-            var product = new Product
-                (input.Name, priceDto, input.UnitType, input.MaxAmountInStock, input.MinAmountInStock, input.AmountInStock, input.Description);
-            
-            if (product.IsInvalid )
-            {
-                return new AddProductOutputDto()
-                {
-                    Erorrs = product.Notifications
-                };
-            }
-
-            await _productRepository.CreateProduct(product);
-
-            await _unitOfWork.Commit();
-
-            return new AddProductOutputDto
-            {
-                ProductId = product.Id
-            };
-        }
-
         public async Task<List<ProductDetailsDto>> GetAll()
         {
             var products = await _productRepository.GetAll();
-           
+
             List<ProductDetailsDto> ProductsDto = products.Select(product => new ProductDetailsDto
             {
                 Id = product.Id,
@@ -69,7 +35,39 @@ namespace Application.Products
             }).ToList();
             return ProductsDto;
         }
+        public async Task<AddProductOutputDto> CreateProduct(AddProductInputDto input)
+        {
+            var priceDto =  Price.Create(input.ItemPrice, input.Currency);
+            if (priceDto.Object==null) 
+            {
+                return new AddProductOutputDto()
+                {
+                    Erorrs = priceDto.Errors.ToList()
+                };
+            }
 
+            var createResult =  Product.Create
+                (input.Name, priceDto.Object, input.UnitType, input.MaxAmountInStock, input.MinAmountInStock, input.AmountInStock);
+           
+            createResult.Object.SetDescription(input.Description);
+          
+            if (createResult.Object==null )
+            {
+                return new AddProductOutputDto()
+                {
+                    Erorrs = createResult.Errors.ToList()
+                };
+            }
+            createResult.Object.UpdateLowStock();
+          await _productRepository.CreateProduct(createResult.Object);
+
+            await _unitOfWork.Commit();
+
+            return new AddProductOutputDto
+            {
+                ProductId = createResult.Object.Id
+            };
+        }
         public async Task<GetProductIsBelowStockThresholdOutputDto> GetBelowStockThresholdProduct()
         {
            var product=await _productRepository.GetProductIsBelowStockThreshold();

@@ -26,5 +26,9 @@ namespace Infrastructure.Repositories
         {
             return await _dbContext.OrderPurchases.AnyAsync(o=>o.SupplierId==supplierId);
         }
+        public async Task<int> CountSupplierHasPurchaseOrder(int supplierId)
+        {
+            return await _dbContext.OrderPurchases.CountAsync(o => o.SupplierId == supplierId);
+        }
     }
 }

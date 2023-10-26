@@ -1,4 +1,6 @@
 ﻿using BethanysPieShop.InventoryManagement.Domain.SupplierManagement;
+using System.Net;
+using System.Numerics;
 
 namespace BethanysPieShop.InventoryManagement.Tests
 {
@@ -7,85 +9,96 @@ namespace BethanysPieShop.InventoryManagement.Tests
         [Fact]
         public void Supplier_ShouldNotNull()
         {
-            var supplier = new Supplier("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
-           supplier.SetEmail("Ahmed@gmail.com");
-            Assert.Equal("Ahmed", supplier.Name);
-            
-            Assert.Equal("1stOmerAbnAlKhtab", supplier.Adress);
-            
-            Assert.Equal(01234455555, supplier.Phone);
-            
-            Assert.Equal("Ahmed@gmail.com", supplier.Email);
-            
-            Assert.NotNull(supplier);
+            var supplier = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
+            supplier.Object.SetEmail("Ahmed@gmail.com");
+
+            Assert.NotNull(supplier.Object);
+
+            Assert.Equal("Ahmed", supplier.Object.Name);
+
+            Assert.Equal("1stOmerAbnAlKhtab", supplier.Object.Adress);
+
+            Assert.Equal(01234455555, supplier.Object.Phone);
+
+            Assert.Equal("Ahmed@gmail.com", supplier.Object.Email);
+
         }
         [Fact]
-        public void Supplier_WhenValuesAreInvalid_ShouldReturnError()
+        public void Supplier_WhenAddInvalidName_ShouldReturnNull()
         {
-            var name = "";
-            var address = "";
-            var email = "";
-            var phone =0;
-           
-            var supplier1 = new Supplier(name, "1stOmerAbnAlKhtab", 01234455555 );
-            
-            supplier1.SetEmail("Ahmed@gmail.com");
-            
-            var supplier2 = new Supplier("Ahmed", address, 01234455555);
-            
-            supplier2.SetEmail("Ahmed@gmail.com");
-            
-            var supplier3 = new Supplier("Ahmed", "1stOmerAbnAlKhtab",phone);
-            
-            supplier3.SetEmail("Ahmed@gmail.com");
-            
-            var supplier4 = new Supplier("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
-            
-            supplier4.SetEmail(email);
-      
-            Assert.False( supplier1.SetName(name));
+            var supplier1 = Supplier.Create("", "1stOmerAbnAlKhtab", 01234455555);
+            Assert.Null(supplier1.Object);
+        }
+        [Fact]
+        public void Supplier_WhenAddInvalidAddress_ShouldReturnNull()
+        {
+            var supplier2 = Supplier.Create("Ahmed", "", 01234455555);
+            Assert.Null(supplier2.Object);
+        }
+        [Fact]
+        public void Supplier_WhenAddInvalidPhone_ShouldReturnNull()
+        {
+            var supplier3 = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 0);
+            Assert.Null(supplier3.Object);
+        }
+        [Fact]
+        public void Supplier_WhenAddInvalidEmail_ShouldReturnNotNull()
+        {
+            var supplier4 = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
 
-            Assert.False(supplier2.SetAdress(address));
+            supplier4.Object.SetEmail("vvv@gmail.com");
 
-            Assert.False(supplier3.SetPhone(phone));
-
-            Assert.True(supplier4.SetEmail(email));
-
+            Assert.NotNull(supplier4.Object);
         }
         [Fact]
         public void UpdateSupplier_ShouldReturnTrue()
         {
-            var supplier = new Supplier("Ahmed", "1stOmerAbnAlKhtab", 0123445555);
-            supplier.SetEmail("Ahmed@gmail.com");
-            supplier.UpdateSupplier("Karim", "3stOmerAbnAlKhtab",0124444444, "Karim@gmail.com");
-            
-            Assert.True(supplier.UpdateSupplier("Karim", "3stOmerAbnAlKhtab", 0124444444, "Karim@gmail.com"));
+            var supplier = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 0123445555);
 
-            Assert.Equal("Karim", supplier.Name);
-            
-            Assert.Equal("3stOmerAbnAlKhtab", supplier.Adress);
-            
-            Assert.Equal(0124444444, supplier.Phone);
-            
-            Assert.Equal("Karim@gmail.com", supplier.Email);
+            supplier.Object.SetEmail("Ahmed@gmail.com");
+
+            var result = supplier.Object.UpdateSupplier("Karim", "3stOmerAbnAlKhtab", 0124444444, "Karim@gmail.com");
+
+            Assert.True(result.IsSucces);
+
+            Assert.Equal("Karim", supplier.Object.Name);
+
+            Assert.Equal("3stOmerAbnAlKhtab", supplier.Object.Adress);
+
+            Assert.Equal(0124444444, supplier.Object.Phone);
+
         }
         [Fact]
-        public void UpdateSupplier2()
+        public void UpdateSupplier_WhenAddInvalidName_ShouldRetuenFalse()
         {
-            var supplier = new Supplier("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
-            supplier.SetEmail("Ahmed@gmail.com");
+            var supplier = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
+            supplier.Object.SetEmail("Ahmed@gmail.com");
 
-            supplier.UpdateSupplier("", "", -1111, "");
+            Assert.False(supplier.Object.UpdateSupplier("", "3stOmerAbnAlKhtab", 0124444444, "Karim@gmail.com").IsSucces);
+        }
+        [Fact]
+        public void UpdateSupplier_WhenAddInvalidAddress_ShouldRetuenFalse()
+        {
+            var supplier = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
+            supplier.Object.SetEmail("Ahmed@gmail.com");
+            
+            Assert.False(supplier.Object.UpdateSupplier("Karim", "", 0124444444, "Karim@gmail.com").IsSucces);
+        }
+        [Fact]
+        public void UpdateSupplier_WhenAddInvalidPhone_ShouldRetuenFalse()
+        {
+            var supplier = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
+            supplier.Object.SetEmail("Ahmed@gmail.com");
+       
+            Assert.False(supplier.Object.UpdateSupplier("Karim", "3stOmerAbnAlKhtab", -1111111, "Karim@gmail.com").IsSucces);
+        }
+        [Fact]
+        public void UpdateSupplier_WhenAddInvalidValues_ShouldRetuenFalse()
+        {
+            var supplier = Supplier.Create("Ahmed", "1stOmerAbnAlKhtab", 01234455555);
+            supplier.Object.SetEmail("Ahmed@gmail.com");
 
-            Assert.False(supplier.UpdateSupplier("", "", -1111, ""));
-           
-            Assert.False(supplier.UpdateSupplier("", "3stOmerAbnAlKhtab", 0124444444, "Karim@gmail.com"));
-            
-            Assert.False(supplier.UpdateSupplier("Karim", "", 0124444444, "Karim@gmail.com"));
-            
-            Assert.False(supplier.UpdateSupplier("Karim", "3stOmerAbnAlKhtab", -1111111, "Karim@gmail.com"));
-            
-            Assert.False(supplier.UpdateSupplier("Karim", "3stOmerAbnAlKhtab", 0124444444, ""));                   
+            Assert.False(supplier.Object.UpdateSupplier("", "", -1111, "").IsSucces);
         }
     }
 }

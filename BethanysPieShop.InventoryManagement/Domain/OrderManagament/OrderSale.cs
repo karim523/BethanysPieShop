@@ -6,11 +6,9 @@ namespace BethanysPieShop.InventoryManagement.Domain.OrderManagment
     public class OrderSale
     {
         private readonly List<OrderItem> _items;
-        //private readonly List<Product> _products;
         public OrderSale()
         {
             _items = new List<OrderItem>();
-            //_products = new List<Product>();
         }
  
         public int Id { get; private set; }
@@ -22,12 +20,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.OrderManagment
                 return this._items;
             }
         }
-        //public IReadOnlyList<Product> Products {
-        //    get
-        //    {
-        //        return this._products;
-        //    }
-        //}
+     
 
         public bool Fulfilled { get; set; } = false;
         //public Order()

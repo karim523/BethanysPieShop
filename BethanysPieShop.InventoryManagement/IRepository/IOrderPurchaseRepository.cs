@@ -7,6 +7,7 @@ namespace BethanysPieShop.InventoryManagement.IRepository
         Task CreateOrder(OrderPurchase orderPurchase);
         Task<List<OrderPurchase>> GetAll();
         Task<bool> IsSupplierHasPurchaseOrder(int supplierId);
+        Task<int> CountSupplierHasPurchaseOrder(int supplierId);
 
     }
 }

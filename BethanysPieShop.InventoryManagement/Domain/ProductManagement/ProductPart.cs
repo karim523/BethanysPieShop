@@ -4,7 +4,7 @@
     {
         public static int StockThreshold = 5;
 
-        private void UpdateLowStock()
+        public void UpdateLowStock()
         {
             if (AmountInStock < MinAmountInStock)
             {

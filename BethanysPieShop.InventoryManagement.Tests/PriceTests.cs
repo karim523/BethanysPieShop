@@ -6,28 +6,24 @@ namespace BethanysPieShop.InventoryManagement.Tests
         [Fact]
         public void Price_ShouldPriceNotNull()
         {
-            Price price = new(12, Currency.Dollar);
+           var createResult = Price.Create(12, Currency.Dollar);
 
-            Assert.NotNull(price);
+            Assert.NotNull(createResult.Object);
         }
-        [Theory]
-        [InlineData(0)]
-        public void Price_AddPriceItemSmallerThanZero_ShouldItemPriceIsInvalid(int itemPrice)
+        [Fact]
+        public void Price_AddPriceItemSmallerThanZero_ShouldItemPriceIsInvalid()
         {
-         
+            var createResult = Price.Create(-222, Currency.Dollar);
 
-            var ex = Assert.Throws<ArgumentException>(() =>new Price(itemPrice,Currency.Dollar));
-
-            Assert.Contains("ItemPrice is invalid", ex.Message);
+            Assert.Null(createResult.Object);
         }
-        [Theory]
-        [InlineData(-1)]
-        public void Price_AddPriceItemEqualZero_ShouldItemPriceIsInvalid(int itemPrice)
+        [Fact]
+        public void Price_AddPriceItemEqualZero_ShouldItemPriceIsInvalid()
         {
 
-            var ex = Assert.Throws<ArgumentException>(() => new Price(itemPrice, Currency.Dollar));
-            
-            Assert.Contains("ItemPrice is invalid", ex.Message);
+            var createResult =Price.Create(0, Currency.Dollar);
+
+            Assert.Null(createResult.Object);
         }
     }
 }

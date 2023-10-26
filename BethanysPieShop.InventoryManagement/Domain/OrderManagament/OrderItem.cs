@@ -4,7 +4,6 @@ namespace BethanysPieShop.InventoryManagement.Domain.OrderManagment
 {
     public class OrderItem
     {            
-
         public int Id{ get; private set; }
         public int AmountOrdered {get;private set;}
         public Product Product { get; private set; }
@@ -23,7 +22,7 @@ namespace BethanysPieShop.InventoryManagement.Domain.OrderManagment
         }
         private void SetAmountOrdered( int amountOrdered )
         {
-            if (amountOrdered <= 0) throw new ArgumentOutOfRangeException("AmountOrdered is Invalid");
+            if (amountOrdered <= 0) throw new ArgumentException("AmountOrdered is Invalid",nameof(amountOrdered));
 
            AmountOrdered = amountOrdered;
         }

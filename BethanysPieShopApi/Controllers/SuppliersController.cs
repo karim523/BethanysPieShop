@@ -21,7 +21,7 @@ namespace BethanysPieShopApi.Controllers
             var output= await _suppliersService.AddSupplier(inputDto);
             return Ok(output);
         }
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             var output=await _suppliersService.GetAll();
@@ -37,6 +37,12 @@ namespace BethanysPieShopApi.Controllers
         public async Task<IActionResult> DeleteSupplier(DeleteSupplierInputDto inputDto)
         {
             var output = await _suppliersService.DeleteSupplier(inputDto);
+            return Ok(output);
+        }
+        [HttpGet("GetMostSuplierHasPurchaseOrder")]
+        public async Task<IActionResult> GetMostSuplierHasPurchaseOrder()
+        {
+            var output = await _suppliersService.MaxSupplierHasPurchaseOrder();
             return Ok(output);
         }
     }

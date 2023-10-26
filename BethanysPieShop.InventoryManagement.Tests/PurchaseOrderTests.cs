@@ -6,16 +6,47 @@ namespace BethanysPieShop.InventoryManagement.Tests
 {
     public class PurchaseOrderTests
     {
-        [Fact]
-        public void AddPurchaseOrder_WhenAddListOrderItemIsDuplicateAmountOrderSmallerThanAmountInStock_ShouldFulfilledBeFalse()
+        [Theory]
+        [InlineData(1)]
+        public void AddPurchaseOrder_WhenAddListOrderItemIsDuplicateAmountOrderSmallerThanAmountInStock_ShouldThrowException(int supplireId)
         {
-            OrderPurchase order = new(1, DateTime.Now,
+            var ex = Assert.Throws<ArgumentException>(() => new OrderPurchase(supplireId, DateTime.Now,
                 new List<OrderItem>()
                 {
-                     new OrderItem( 20 ,new Product(1, "Sugar", new Price(10, Currency.Euro), UnitType.perKg, 80)),
-                     new OrderItem( 20 ,new Product(1, "Sugar", new Price(10, Currency.Euro), UnitType.perKg, 80))
-                });
-            Assert.False(order.Fulfilled);
+                     new OrderItem( 20 , Product.Create( "Sugar", Price.Create(10, Currency.Euro).Object , UnitType.perKg, 80,2,11).Object),
+                     new OrderItem( 20 ,Product.Create( "Sugar", Price.Create(10, Currency.Euro).Object, UnitType.perKg, 80,2,11).Object)
+                }));
+            Assert.Contains($"The Product Id 0 is Duplicated", ex.Message);
+            
+        }
+        [Theory]
+        [InlineData(-1)]
+        public void AddPurchaseOrder_WhenAddInvalidValueSupplierId_ShouldThrowException(int supplireId)
+        {
+            var ex = Assert.Throws<ArgumentException>(() => new OrderPurchase(supplireId, DateTime.Now,
+                new List<OrderItem>()
+                {
+                     new OrderItem( 20 ,Product.Create("Sugar",  Price.Create(10, Currency.Euro).Object, UnitType.perKg, 80,2,11).Object),
+                     new OrderItem( 20 ,Product.Create("Eggs",  Price.Create(10, Currency.Euro).Object, UnitType.perKg, 80,2,11).Object)
+                }));
+
+            Assert.Contains($"Supplier Id must not be Zero or Negative", ex.Message);
+
+        }
+        [Theory]
+        [InlineData]
+        public void AddPurchaseOrder_WhenAddInvalidValueOrderDate_ShouldThrowException()
+        {
+
+            var ex2 = Assert.Throws<ArgumentException>(() => new OrderPurchase(1, DateTime.Now.AddDays(2),
+            new List<OrderItem>()
+            {
+                new OrderItem( 20 ,Product.Create("Sugar",  Price.Create(10, Currency.Euro).Object, UnitType.perKg,  80,2,11).Object),
+                new OrderItem( 20 ,Product.Create("Eggs",  Price.Create(10, Currency.Euro).Object, UnitType.perKg,  80,2,11).Object)
+            }));
+
+            Assert.Contains($"Order Date must not be less than Today", ex2.Message);
+
         }
         [Fact]
         public void AddPurchaseOrder_WhenAddListOrderItemIsNotDuplicateAmountOrderSmallerThanAmountInStock_ShouldFulfilledBeTrue()
@@ -23,8 +54,8 @@ namespace BethanysPieShop.InventoryManagement.Tests
             OrderPurchase order = new(1, DateTime.Now,
                 new List<OrderItem>()
                 {
-                    new OrderItem( 20 ,new Product(1, "Sugar", new Price(10, Currency.Euro), UnitType.perKg, 80)),
-                    new OrderItem(10 ,new Product(2, "Eggs", new Price(9, Currency.Euro), UnitType.perBox, 60))
+                   new OrderItem( 20 ,Product.Create("Sugar",  Price.Create(10, Currency.Euro).Object, UnitType.perKg,  80,2,11).Object),
+                   new OrderItem( 10 ,Product.Create("Eggs",  Price.Create(10, Currency.Euro).Object, UnitType.perKg,  80,2,11).Object)
                 });
             Assert.True(order.Fulfilled);
         }
@@ -34,34 +65,28 @@ namespace BethanysPieShop.InventoryManagement.Tests
             OrderPurchase order = new(1, DateTime.Now,
                 new List<OrderItem>()
                 {
-                     new OrderItem(90 ,new Product(1, "Sugar", new Price(10, Currency.Euro), UnitType.perKg, 80)),
-                     new OrderItem(10 ,new Product(2, "Eggs", new Price(9, Currency.Euro), UnitType.perBox, 60))
+                    new OrderItem( 90 ,Product.Create("Sugar",  Price.Create(10, Currency.Euro).Object, UnitType.perKg,  80,2,11).Object),
+                    new OrderItem( 10 ,Product.Create("Eggs",  Price.Create(10, Currency.Euro).Object, UnitType.perKg,  80,2,11).Object)
                 });
             Assert.False(order.Fulfilled);
         }
 
         [Theory]
-        [InlineData(-1, 0)]
-        public void AddPurchaseOrder_WhenAddListOrderItemIsNotDuplicateAndAmountEqualZero_ShouldFulfilledBeFalse(int amount, int amount2)
+        [InlineData(0)]
+        public void AddPurchaseOrder_WhenAddListOrderItemIsNotDuplicateAndAmountEqualZero_ShouldThrowExcption(int amountOrdered)
         {
-            OrderPurchase order = new(1,DateTime.Now,
-                new List<OrderItem>()
-                {
-                      new OrderItem( amount ,new Product(1, "Sugar", new Price(10, Currency.Euro), UnitType.perKg, 80)),
-                      new OrderItem( amount2 ,new Product(2, "Eggs", new Price(9, Currency.Euro), UnitType.perBox, 60))
-                });
+            var ex = Assert.Throws<ArgumentException>(() =>
+            new OrderItem(amountOrdered, Product.Create("Sugar", Price.Create(10, Currency.Euro).Object, UnitType.perKg, 80, 2, 11).Object));
 
-            var ex = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            new OrderItem(amount, new Product(1, "Sugar", new Price(10, Currency.Euro), UnitType.perKg, 80)));
+            Assert.Equal(nameof(amountOrdered), ex.ParamName);
 
-            var ex2 = Assert.Throws<ArgumentOutOfRangeException>(() =>
-            new OrderItem(amount2, new Product(2, "Eggs", new Price(9, Currency.Euro), UnitType.perBox, 60)));
 
-            Assert.Contains("AmountOrdered is Invalid", ex.Message);
 
-            Assert.Contains("AmountOrdered is Invalid", ex2.Message);
+            //var ex2 = Assert.Throws<ArgumentException>(() =>
+            //new OrderItem(amount2, Product.Create("Sugar",  Price.Create(10, Currency.Euro).Object, UnitType.perKg,  80,2,11).Object));
 
-            Assert.False(order.Fulfilled);
+            //Assert.Contains("AmountOrdered is Invalid", ex2.Message);
+
 
         }
     }

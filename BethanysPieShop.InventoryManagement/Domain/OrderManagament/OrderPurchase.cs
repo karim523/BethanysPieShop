@@ -1,10 +1,8 @@
-﻿using BethanysPieShop.InventoryManagement.Domain.SupplierManagement;
-using BethanysPieShop.InventoryManagement.NotificationContext;
-using System.Text;
+﻿using System.Text;
 
 namespace BethanysPieShop.InventoryManagement.Domain.OrderManagment
 {
-    public class OrderPurchase: Notifiable
+    public class OrderPurchase
     {
         private readonly List<OrderItem> _items;
    
@@ -19,7 +17,10 @@ namespace BethanysPieShop.InventoryManagement.Domain.OrderManagment
             }
         }
         public int SupplierId { get; private set; }
+        private OrderPurchase()
+        {
 
+        }
         public OrderPurchase(int supplierId, DateTime orderDate, List<OrderItem> orderItems)
         {
             if(supplierId <= 0)
@@ -41,12 +42,6 @@ namespace BethanysPieShop.InventoryManagement.Domain.OrderManagment
             _items = new List<OrderItem>();
 
             AddListOrderItems(orderItems);
-
-            Fulfilled = true;
-        }
-        private OrderPurchase()
-        {
-
         }
         public string ShowOrderDetails()
         {
